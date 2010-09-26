@@ -1,0 +1,14 @@
+$TTL 1d
+$ORIGIN 8.8.4.0.1.1.f.1.0.7.4.0.1.0.0.2.ip6.arpa.
+
+8.8.4.0.1.1.f.1.0.7.4.0.1.0.0.2.ip6.arpa.	IN	SOA	blinky.jrock.us. jon.jrock.us. (
+						2
+						1d
+						2h
+						4w
+						1h
+						)
+							NS	blinky.jrock.us.
+8.a.c.b.9.2.e.f.f.f.1.1.5.2.2.0.8.8.4.0.1.1.f.1.0.7.4.0.1.0.0.2.ip6.arpa.	IN	PTR	snowball2.jrock.us.
+3.6.1.2.1.0.e.f.f.f.d.6.0.f.6.7.8.8.4.0.1.1.f.1.0.7.4.0.1.0.0.2.ip6.arpa.	IN	PTR	eeetv.jrock.us.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.8.4.0.1.1.f.1.0.7.4.0.1.0.0.2.ip6.arpa.	IN	PTR	blinky.jrock.us.

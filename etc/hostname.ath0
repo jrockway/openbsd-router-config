@@ -1,0 +1,2 @@
+inet 192.168.1.1 255.255.255.0 NONE media autoselect
+mode 11b mediaopt hostap nwid opencord chan 9 wpa wpapsk 0xfdeb2ed1fdc649f2c281b2564280b38ff5ff60459986f5e328901b49d2aa7738

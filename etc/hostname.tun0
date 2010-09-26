@@ -1,0 +1,2 @@
+up
+!/usr/local/sbin/openvpn --daemon --config /etc/openvpn/server.conf

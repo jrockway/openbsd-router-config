@@ -1,0 +1,16 @@
+$ORIGIN	internal.
+$TTL 300
+internal.	IN	SOA	router.internal. jrockway.internal. (
+		1
+		1d
+		2h
+		4w
+		1h
+		)
+
+internal.	NS	ns
+ns		IN	A	10.0.0.2
+router		IN	A	10.0.0.2
+blinky		IN	A	10.0.0.2
+snowball2	IN	A	10.0.0.5
+eeetv		IN	A	10.0.0.4

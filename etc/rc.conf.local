@@ -1,0 +1,5 @@
+ntpd_flags=		# enabled during install
+route6d_flags=
+rtadvd_flags=msk0
+dhcpd_flags=msk0
+named_flags=

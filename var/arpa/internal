@@ -1,0 +1,15 @@
+$TTL	1d
+$ORIGIN 10.in-addr.arpa.
+
+10.in-addr.arpa.		IN	SOA	router.internal. jon.jrock.us. (
+				1
+				1d
+				2h
+				4w
+				1h
+				)
+
+					NS	router.internal.
+2.0.0.10.in-addr.arpa.		IN	PTR	blinky.internal.
+4.0.0.10.in-addr.arpa.		IN	PTR	eeetv.internal.
+5.0.0.10.in-addr.arpa.		IN	PTR	snowball2.internal.

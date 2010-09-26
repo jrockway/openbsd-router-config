@@ -1,0 +1,125 @@
+Intro
+=====
+
+This is the configuration for my Intel Mac Mini -based OpenBSD router.
+It is not something that you can likely copy and use directly, but it
+is a good example of a real configuration.  I am not an OpenBSD
+expert, but my goal was to modify the default install as little as
+possible.  Since that is "secure by default", hopefully I did not
+introduce too much insecurity.  It only ends up being a few lines of
+config and one or two additional non-standard packages.
+
+If you see something insecure, please send me a patch!  (Yes, the
+password for my wireless network is in here.  I don't really care, you
+don't live anywhere near me, so you can't get access with that.  I
+always use "jrockway" for my passwords anyway!)
+
+
+My Networks
+===========
+
+The network interfaces are setup in hostname.<driver>[0-9]+ files.  I
+have the following cards:
+
+msk0: This is the internal Gigabit Ethernet.  It is my internal
+      network.
+
+      It's on 10.0.0.0/24.  (It was a /8, but then I ran out of
+      networks when setting up a routed OpenVPN.)
+
+aue0: This is a USB 1.1 Ethernet adaptor that connects to teh
+      intarwebs.  I bought it because it was the first thing
+      documented as supported that I could find on Amazon Prime.
+      Since my DSL is 6M/768k, the 12M USB 1.1 is not a bottleneck.
+
+      It's <blinky.jrock.us>.
+
+      http://www.amazon.com/gp/product/B0000CDZ82
+
+      (Note: the one I bought from Amazon did not have the same
+       chipset as the OpenBSD docs said it had.  But it does work.  I
+       wish they would change the model number when they are going to
+       dramatically alter the product.)
+
+ath0: Internal wireless a/b/g.  I actually hang a 802.11n access point
+      off my internal network, so this exists merely for fun.
+
+      It's on 192.168.1.1/24.
+
+gif0: This is my tunnel to the IPv6 intarwebs.  It's provided (for
+      free) by Hurricane Electric. They give you a /64 or /48.  Since
+      not all the particles in the Universe are currently in my
+      apartment (and don't need an IP address anyway), I just have a
+      /64.
+
+tun0: This is the tunnel from the OpenVPN server to the networking
+      stack. The hostname.tun0 just brings the tunnel up and starts
+      the OpenVPN server, which is what actually configures the
+      tunnel.
+
+      My OpenVPN network is 10.0.1.0/24.
+
+My Services
+===========
+
+dhcpd:   DHCP for my internal network.  snowball2 and eeetv have static
+         addresses.  Everything else ends up at 10.0.0.200 or above.
+
+rtadvd:  Advertises my IPv6 subnet to the rest of the internal network.  This
+         allows every machine to auto-select a real routable IPv6 address!
+
+named:   This is the DNS server.  It handles:
+
+           * name resolution for the .internal zone
+           * reverse name resolution for my IPv6 subnet
+           * caching DNS resolution for anything on my internal network
+
+OpenBSD runs a few other services by default; sendmail, sshd, and
+ntpd.  These do what you think they do, I didn't touch the
+configuration at all (except maybe to turn off root logins over ssh).
+
+My Firewall
+===========
+
+I picked OpenBSD instead of Linux mostly because pf is so wonderful.  Detailed
+comments are in pf.conf, but here's an overview:
+
+   * keep state on all traffic (and fix all syncookies)
+   * deny all traffic by default (and log denied connections)
+   * QoS so that ssh stays responsive at all times (and so that
+     apt-get dist-upgrade doesn't interfere with my streaming TV
+     downloads)
+   * NAT from the internet to my internal network
+   * allow icmp from the internet
+   * allow ssh from the internet
+   * allow dns connections to this box
+   * allow openvpn connections to this box
+
+Adding a new machine internally
+===============================
+
+   * assign static IP in dhcpd.conf
+   * add reverse DNS entry
+   * add forward internal DNS entry
+
+Adding a new machine on the VPN
+===============================
+
+   * generate certificates
+
+Overall
+=======
+
+This router is much better than anything I've ever used; various
+consumer-level shit boxes (never buy netgear hardware), openwrt, and
+ddwrt.  There is no fancy web interface, but once the box is set up
+there is nothing much to do.  It just keeps working, and you can ssh
+in and check out how the firewall is doing or read your mail.
+
+IPv6 is nice.  I sometimes have better connectivity over the IPv6
+tunnel than I do via my IPv4 ISP!
+
+Sharing
+=======
+
+Share and enjoy!
